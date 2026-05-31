@@ -90,10 +90,28 @@ Only the providers with configured API keys will work. For example, a fork can d
 Optional model defaults:
 
 ```bash
-DEFAULT_OPENAI_MODEL=gpt-4.1-mini
-DEFAULT_ANTHROPIC_MODEL=claude-3-5-sonnet-latest
-DEFAULT_GEMINI_MODEL=gemini-2.5-flash
+DEFAULT_OPENAI_MODEL=gpt-5.4-mini
+DEFAULT_ANTHROPIC_MODEL=claude-haiku-4-5
+DEFAULT_GEMINI_MODEL=gemini-2.5-flash-lite
 ```
+
+## Cost-Effective Model Defaults
+
+The app defaults are chosen for low-cost document extraction, not maximum benchmark scores.
+
+| Provider | Default | Why |
+| --- | --- | --- |
+| OpenAI | `gpt-5.4-mini` | Stronger mini model for extraction; `gpt-5.4-nano` is included as a cheaper option. |
+| Anthropic | `claude-haiku-4-5` | Lowest-cost current Claude model tier for fast extraction workflows. |
+| Gemini | `gemini-2.5-flash-lite` | Lowest-cost Gemini Flash-family option for high-throughput extraction. |
+
+Higher-quality options remain available in the model selector:
+
+- OpenAI: `gpt-5.4`, `gpt-4.1-mini`, `gpt-4o-mini`
+- Anthropic: `claude-sonnet-4-6`, `claude-sonnet-4-5`
+- Gemini: `gemini-2.5-flash`, `gemini-3-flash-preview`
+
+Gemini 3 Flash is included for users who want better quality, but it is more expensive than Gemini 2.5 Flash-Lite and Gemini 2.5 Flash.
 
 ## Deploy Elsewhere
 

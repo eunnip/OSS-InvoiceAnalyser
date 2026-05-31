@@ -24,9 +24,9 @@ export const config = {
 };
 
 const DEFAULT_MODELS: Record<Provider, string> = {
-  openai: process.env.DEFAULT_OPENAI_MODEL || "gpt-4.1-mini",
-  anthropic: process.env.DEFAULT_ANTHROPIC_MODEL || "claude-3-5-sonnet-latest",
-  gemini: process.env.DEFAULT_GEMINI_MODEL || "gemini-2.5-flash",
+  openai: process.env.DEFAULT_OPENAI_MODEL || "gpt-5.4-mini",
+  anthropic: process.env.DEFAULT_ANTHROPIC_MODEL || "claude-haiku-4-5",
+  gemini: process.env.DEFAULT_GEMINI_MODEL || "gemini-2.5-flash-lite",
 };
 
 const parseJsonish = (text: string) => {

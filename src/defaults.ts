@@ -22,7 +22,7 @@ export const DEFAULT_SCHEMA = `{
 }`;
 
 export const MODELS = {
-  openai: ["gpt-4.1-mini", "gpt-4.1", "gpt-4o-mini"],
-  anthropic: ["claude-3-5-sonnet-latest", "claude-3-5-haiku-latest"],
-  gemini: ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-1.5-flash"],
+  openai: ["gpt-5.4-mini", "gpt-5.4-nano", "gpt-5.4", "gpt-4.1-mini", "gpt-4o-mini"],
+  anthropic: ["claude-haiku-4-5", "claude-sonnet-4-6", "claude-sonnet-4-5"],
+  gemini: ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-3-flash-preview"],
 } as const;
