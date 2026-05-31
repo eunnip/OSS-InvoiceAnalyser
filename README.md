@@ -25,11 +25,11 @@ It supports multiple AI providers:
 ```bash
 npm install
 cp .env.example .env.local
-npm run api
-npm run dev
+npm run build
+npm start
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:8787`.
 
 Set at least one provider key in `.env.local`:
 
@@ -41,24 +41,28 @@ GEMINI_API_KEY=...
 
 ## Development
 
-Run the API and frontend in separate terminals:
+For local development with Vite hot reload, run the API and frontend in separate terminals:
 
 ```bash
 npm run api
 npm run dev
 ```
 
-Build the frontend:
+Open `http://localhost:3000`. Vite proxies `/api` requests to the local Express API on port `8787`.
+
+## Local Production
 
 ```bash
 npm run build
-```
-
-Preview the production build:
-
-```bash
 npm start
 ```
+
+Open `http://localhost:8787`. The local Express server serves both:
+
+- the built frontend from `dist/`
+- the extraction API at `POST /api/extract`
+
+Use `PORT=3000 npm start` if you want a different local port.
 
 ## Deploy to Vercel
 
@@ -70,6 +74,8 @@ Vercel should detect the app automatically. The repo also includes `vercel.json`
 - Build command: `npm run build`
 - Output directory: `dist`
 - Serverless API: `api/extract.ts`
+
+On Vercel, the frontend is served from `dist/` and `POST /api/extract` runs as a serverless function. The local `server.ts` file is only used when running locally.
 
 Add environment variables in Vercel Project Settings:
 
