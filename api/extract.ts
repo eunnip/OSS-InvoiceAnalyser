@@ -1,8 +1,27 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { GoogleGenAI } from "@google/genai";
 import OpenAI from "openai";
-import type { Request, Response } from "express";
 import type { ExtractionRequest, ExtractionResponse, Provider } from "../src/types";
+
+interface ServerlessRequest {
+  method?: string;
+  body: unknown;
+}
+
+interface ServerlessResponse {
+  setHeader(name: string, value: string): void;
+  status(code: number): ServerlessResponse;
+  json(value: unknown): void;
+}
+
+export const config = {
+  maxDuration: 60,
+  api: {
+    bodyParser: {
+      sizeLimit: "25mb",
+    },
+  },
+};
 
 const DEFAULT_MODELS: Record<Provider, string> = {
   openai: process.env.DEFAULT_OPENAI_MODEL || "gpt-4.1-mini",
@@ -136,9 +155,15 @@ const validatePayload = (payload: Partial<ExtractionRequest>): ExtractionRequest
   return payload as ExtractionRequest;
 };
 
-export const extractHandler = async (req: Request, res: Response) => {
+export const extractHandler = async (req: ServerlessRequest, res: ServerlessResponse) => {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    res.status(405).json({ error: "Method not allowed." });
+    return;
+  }
+
   try {
-    const payload = validatePayload(req.body);
+    const payload = validatePayload(req.body as Partial<ExtractionRequest>);
     const result =
       payload.provider === "openai"
         ? await extractWithOpenAI(payload)
